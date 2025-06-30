@@ -210,6 +210,16 @@ Here is my second user, Micheal Smith.
 
 ![image](https://github.com/user-attachments/assets/f447e905-27ea-4cc1-b201-46ac0ed41e0d)
 
+Let's make both of our new users Domain Admins. Within the "Users" folder, double-click the "Domain Admins" security group.
+
+![image](https://github.com/user-attachments/assets/ffbe098f-54f6-4094-a611-2d231dabd1e9)
+
+Click "Add" then type in the name of both of the users you just created. 
+
+![image](https://github.com/user-attachments/assets/3baaf163-75ce-42aa-88cc-412c9459653b)
+
+![image](https://github.com/user-attachments/assets/9ea962a7-3973-44ad-9f18-dc7ebd116d94)
+
 Now it's time to create the Windows 10 VMs that will join our newly created domain. 
 
 Within the Azure Portal, under Virtual machines, click on Create.
