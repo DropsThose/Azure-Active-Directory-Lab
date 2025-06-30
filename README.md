@@ -1,8 +1,11 @@
 # Azure-Active-Directory-Lab
 
-This project will go over the steps to create an Active Directory lab environment within Microsoft Azure.
+Purpose:
+The purpose of this project is to create a Microsoft Azure Active Directory lab environment for experimenting with Active Directory exploitation. 
+This project will outline the steps to create an Active Directory lab environment within Microsoft Azure, which will include a virtual network, a Windows Server domain controller, two Windows 10 domain-joined workstations, and a Kali Linux attack box. 
+This example uses Windows Server 2022 Datacenter, Windows 10 Enterprise 22H2, and Kali Linux 2024.4.
 
-At the time of writing, You can create a free account with Microsoft Azure that will give you $200 worth of credits to use in your first 30 days.
+At the time of writing, you can create a free account with Microsoft Azure that will give you $200 worth of credits to use in your first 30 days.
 
 ![image](https://github.com/user-attachments/assets/77e0304f-4e70-45a4-bfe4-9363539a38db)
 
@@ -34,7 +37,7 @@ Give your virtual network a name and select the region where you would like it t
 
 ![image](https://github.com/user-attachments/assets/5407b7ed-9cd2-4b47-be1e-e7815e3b3c4b)
 
-Navigate to the IP addresses tab. This is where you will configure the subnet your virtual network will use. I left mine at the default 10.0.0.0/16.
+Navigate to the IP addresses tab. This is where you will configure the subnet that your virtual network will use. I left mine at the default 10.0.0.0/16.
 
 ![image](https://github.com/user-attachments/assets/22eec304-2f33-401c-bf1b-9f21725131b6)
 
@@ -82,7 +85,7 @@ Change the OS disk type to Standard HDD. Click Next: Networking.
 
 ![image](https://github.com/user-attachments/assets/a17a52ec-11d9-493b-97d1-a9765eb6572b)
 
-Under the networking tab, it tells you that a virual network interface card will be created for your virtual machine. This virtual NIC will hold the private IP and public IP that will be assigned to your virtual machine. One thing of note is that with the free subscription of Microsoft Azure you can only create a maximun of 3 public IP addresses so what we will do is create 1 public IP here with the domain controller and then transfer that public IP to all of the other virtual machines as we create them in order to configure them initially. At the end when our Kali Linux attack box is created the public IP will remain with the attack box where we will then be able to ssh to the public IP of the Kali box to use it as a jump box to then connect using the private IPs of the other virtual machines if need be. Leave the defaults here and click Review + create.
+Under the networking tab, it tells you that a virtual network interface card will be created for your virtual machine. This virtual NIC will hold the private IP and public IP that will be assigned to your virtual machine. One thing of note is that with the free subscription of Microsoft Azure you can only create a maximun of 3 public IP addresses so what we will do is create one public IP here with the domain controller and then transfer that public IP to all of the other virtual machines as we create them to configure them initially. At the end, when our Kali Linux attack box is created, the public IP will remain with the attack box, where we will then be able to SSH to the public IP of the Kali box to use it as a jump box to then connect using the private IPs of the other virtual machines, if need be. Leave the defaults here and click Review + create.
 
 ![image](https://github.com/user-attachments/assets/7c80a7fc-558d-4539-aba7-521b7729042f)
 
@@ -278,7 +281,7 @@ Go to "Change adapter options".
 
 ![image](https://github.com/user-attachments/assets/1854e93f-464e-4b56-9a6f-4072f546c12b)
 
-Right-click "Ethernet" then go to "Properties".
+Right-click "Ethernet" and then go to "Properties".
 
 ![image](https://github.com/user-attachments/assets/4106fbfa-62cf-4357-95a8-b6413f1b10da)
 
@@ -286,7 +289,7 @@ Find "Internet Protocol Version 4" then click "Properties".
 
 ![image](https://github.com/user-attachments/assets/ba4197ab-43c2-4273-827e-61e1df05e8f8)
 
-Check "Use the following DNS server addresses:" and put the private IP of your DomainController VM in the first box. Press "OK". At this point you may lose your RDP connection and may need to reconnect or restart the Windows 10 VM from the Azure Portal.  
+Check "Use the following DNS server addresses:" and put the private IP of your DomainController VM in the first box. Press "OK". At this point, you may lose your RDP connection and may need to reconnect or restart the Windows 10 VM from the Azure Portal.  
 
 ![image](https://github.com/user-attachments/assets/9b239152-d1d6-4e63-be78-2ddd8fa6f0c4)
 
@@ -305,6 +308,88 @@ Input the credentials of the Administrator account you created for your DomainCo
 You will be greeted with this message welcoming you to the domain! You will then be prompted to restart your VM. Once you restart, you will be able to log in using any of the two users you created within your Domain Controller. 
 
 ![image](https://github.com/user-attachments/assets/b8549ad3-a5d4-4a5e-8630-843fdf42fd2f)
+
+![image](https://github.com/user-attachments/assets/47f9483a-512e-4432-af20-721bb8b489b7)
+
+Repeat the above steps to create the second Windows VM and join it to your domain. 
+
+![image](https://github.com/user-attachments/assets/fb1af767-38a1-4deb-9f91-4ccbff1156dc)
+
+![image](https://github.com/user-attachments/assets/07250951-9ed1-45bb-b362-2429fa118063)
+
+![image](https://github.com/user-attachments/assets/19c59c18-59c9-46ea-ad64-cdae36bde250)
+
+![image](https://github.com/user-attachments/assets/9e147aba-7ddb-40bc-9543-9bb8259b0830)
+
+![image](https://github.com/user-attachments/assets/6d5fa599-728b-4dd7-a289-bd74945263da)
+
+![image](https://github.com/user-attachments/assets/e03a4e2b-6e6e-4959-9ee7-15f4ebdc1c8a)
+
+![image](https://github.com/user-attachments/assets/e04835ed-765b-447b-af92-3c5fbf9b4fff)
+
+Now that your second Windows 10 VM is created and joined to the domain, it's time to create our Kali Linux attack box!
+
+Back in the Azure Portal, let's create another VM.
+
+![image](https://github.com/user-attachments/assets/b61660cd-2d02-4ed6-9b28-c3e3aabcaa00)
+
+For the image, find Kali Linux and select which version you would like to use. I chose Kali Linux 2024.4 - x64 Gen2.
+
+![image](https://github.com/user-attachments/assets/119c2f69-f432-4c89-87bb-98dcd9addade)
+
+You may see this red text after you select your image, talking about compatibility issues. Change the Security type to Standard in order to fix the compatibility issue.
+
+![image](https://github.com/user-attachments/assets/37fbec8d-547b-4186-b681-080b21ddeba5)
+
+Change the Authentication type to Password and create a login.
+
+![image](https://github.com/user-attachments/assets/8f725ee0-b66f-4fbe-b671-dff391a857c8)
+
+Change disk type to Standard HDD.
+
+![image](https://github.com/user-attachments/assets/841762e4-50b4-451b-94f8-83138ca31c1d)
+
+Set Public IP to none.
+
+![image](https://github.com/user-attachments/assets/2bfe8ad8-22a7-4919-9b7c-d7a7d5b2041a)
+
+Review + create
+
+![image](https://github.com/user-attachments/assets/3b3d09f7-60fb-4f5d-98b9-842a83038290)
+
+Once your Kali VM is deployed and you associate the public IP address with it, you can connect to it via SSH using a tool like PuTTY. 
+
+![image](https://github.com/user-attachments/assets/39bcca59-0c14-4fe7-8f76-1edabcec36f9)
+
+![image](https://github.com/user-attachments/assets/ac7a2cd5-b206-4a88-b6e1-b23de9ff2d13)
+
+Once you are connected to your Kali VM via SSH, you will notice that this installation of Kali is the minimal installation version, which comes with no tools. A few steps will need to be completed to update and install the tools that typically come with Kali.
+
+![image](https://github.com/user-attachments/assets/ed1ade64-a984-4bbc-9d3f-8f0eedc49872)
+
+At the time of writing, the maintainers of Kali have changed the signing key used to verify the update files. Therefore, to progress with running updates, you may need to update your signing key. More information regarding this can be found at https://www.kali.org/blog/new-kali-archive-signing-key/.
+
+I am following the official guide to install the typical Kali tools in the VM. https://www.kali.org/docs/general-use/metapackages/
+
+Ensure your Kali is updated with the following command: sudo apt update && sudo apt full-upgrade -y
+
+Allow the updates to install. This may take a while...
+![image](https://github.com/user-attachments/assets/63c67550-3c25-4c4a-be1b-585277acd1db)
+
+After your Kali is updated, run the following command to install the kali-linux-default metapackage, which contains all the typical Kali tools: sudo apt install -y kali-linux-default
+This may take a while...
+![image](https://github.com/user-attachments/assets/524a1082-6628-48e3-9255-e7992078651d)
+
+Once the metapackage is installed, you will be able to use tools. Here is me running netdiscover to locate the Domain Controller and both Windows 10 VMs we created.
+![image](https://github.com/user-attachments/assets/e4fa1ecb-ec40-4c15-932a-7e35a0692835)
+
+Nmap scan of the domain controller.
+
+![image](https://github.com/user-attachments/assets/b800b8fb-3f02-48a2-8188-4fa93265e8fd)
+
+THE END
+
+
 
 
 
