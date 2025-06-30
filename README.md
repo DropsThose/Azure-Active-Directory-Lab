@@ -1,6 +1,7 @@
 # Azure-Active-Directory-Lab
 
 Purpose:
+
 The purpose of this project is to create a Microsoft Azure Active Directory lab environment for experimenting with Active Directory exploitation. 
 This project will outline the steps to create an Active Directory lab environment within Microsoft Azure, which will include a virtual network, a Windows Server domain controller, two Windows 10 domain-joined workstations, and a Kali Linux attack box. 
 This example uses Windows Server 2022 Datacenter, Windows 10 Enterprise 22H2, and Kali Linux 2024.4.
