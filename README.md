@@ -1,4 +1,4 @@
-# Azure-Active-Directory-Lab
+# Azure Active Directory Lab
 
 Purpose:
 
